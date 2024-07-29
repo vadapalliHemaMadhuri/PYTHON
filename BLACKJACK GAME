@@ -1,0 +1,71 @@
+import random
+import os
+def play():
+    from pyfiglet import figlet_format
+    print(figlet_format("black magic", font= "big"))
+
+
+    def deal_card():
+        cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+        card=random.choice(cards)
+        return card
+    user_cards = []
+    computer_cards = []
+    game_ends=False
+
+    def calculate_score(list_cards):
+            if sum(list_cards)==21 and len(list_cards)==2:
+                return 0
+            if 11 in list_cards and sum(list_cards)>21:
+                list_cards.remove(11)
+                list_cards.append(1)
+            
+            return sum(list_cards)
+    def compare(user_score,computer_score):
+
+        if computer_score==user_score:
+            return "draw" 
+        elif computer_score==0:
+            return "you loose "
+        elif user_score==0:
+            return "you win"
+        elif user_score>21:  
+            return "you loose,you went over 21"
+        elif computer_score>21:
+            return "you win, the computer over 21"
+        elif user_score>computer_score:
+            return "you win"
+        else:
+            return "you loose"
+
+    for k in range(2):
+            user_cards.append(deal_card())
+            computer_cards.append(deal_card())
+    while not game_ends:    
+        user_score=calculate_score(user_cards)
+        computer_score=calculate_score(computer_cards)
+        print(f"your cards:{user_cards}, current score:{user_score}")
+        print(f"computer first card:{computer_cards[0]}")
+        if user_score==0 or computer_score==0 or user_score>21:
+            game_ends=True
+        else:
+            user_input=input("Type y or n: ")
+            if user_input=="y":
+                user_cards.append(deal_card())
+                user_score=calculate_score(user_cards)
+
+            else:
+                game_ends=True
+    while computer_score!=0 and computer_score<17:
+        computer_cards.append(deal_card())
+        computer_score=calculate_score(computer_cards)
+    print(f"final output of user: {user_cards},{user_score}")  
+    print(f"final output of computer:{computer_cards},{computer_score}")  
+    print(compare(user_score,computer_score)) 
+play()       
+user=input("do you want to play this game again?Type yes or no: ")
+os.system('cls')
+if user=="yes":
+    play()
+else:
+    print("The game is over")    
