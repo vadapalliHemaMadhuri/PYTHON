@@ -1,0 +1,24 @@
+
+import random
+number=random.randint(1,100)
+print(number)
+print("Welcome to number guessing")
+level=input("choose the level: ")
+if level=="easy":
+    turns=10
+    
+else:
+    turns=5
+   
+for i in range(turns,0,-1): 
+    print(f"you have {i} attempts to complete this game")
+    
+    guess=int(input("Make a guess:"))
+    if guess>number:
+        print("too high")
+    elif guess<number:
+        print("too low")
+    else:
+        print("you got the right answer")
+if guess!=number:
+    print("You reached your attempts")
